@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Busca de Publicações</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- tela de busca -->
+    <div id="screenForm" class="screen active">
+      <h1 class="card-title">Formulario de Busca de Publicações</h1>
+      <p class="card-description">Preencha um ou mais campos abaixo para realizar a consulta.</p>
+
+      <form id="searchForm">
+        <div class="form-group">
+          <label for="autor">Autor</label>
+          <input type="text" id="autor" class="tela-busca" placeholder="Ex: Machado de Assis">
+        </div>
+
+        <div class="form-group">
+          <label for="titulo">Título</label>
+          <input type="text" id="titulo" class="tela-busca" placeholder="Ex: Dom Casmurro">
+        </div>
+
+        <div class="form-group">
+          <label for="isbn">ISBN</label>
+          <input type="text" id="isbn" class="tela-busca" placeholder="Ex: 978-0">
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="btnClear" class="btn btn-Limpar">Limpar</button>
+          <button type="submit" class="btn btn-Buscar">Buscar</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Tela de Erro -->
+    <div id="screenError" class="screen">
+      <h1 class="card-title">Erro na Pesquisa</h1>
+      <div class="alert-error">
+        Por favor, preencha pelo menos um dos campos (Autor, Título ou ISBN) antes de buscar.
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-Buscar btn-back">Voltar e Preencher</button>
+      </div>
+    </div>
+
+    <!-- Tela de Loading -->
+    <div id="screenLoading" class="screen">
+      <h1 class="card-title">Buscando Publicações</h1>
+      <div class="loader-container">
+        <div class="spinner"></div>
+        <p class="loader-text">Consultando o acervo, por favor aguarde...</p>
+      </div>
+      <div class="form-actions">
+        <button type="button" id="btnCancel" class="btn btn-danger">Cancelar Busca</button>
+      </div>
+    </div>
+
+    <!-- Tela de Sucesso  -->
+    <div id="screenSuccess" class="screen">
+      <h1 class="card-title">Resultado Encontrado</h1>
+      <p class="card-description">Foram encontradas publicações com os dados informados:</p>
+      
+      <div class="book-card">
+        <div class="book-title" id="resultTitle">Dom Casmurro</div>
+        <div class="book-meta" id="resultAuthor">Autor: Machado de Assis</div>
+        <div class="book-meta" id="resultIsbn">ISBN: 978-85-359-0277-7</div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-Buscar btn-back">Nova Busca</button>
+      </div>
+    </div>
+
+    <!-- Tela de Nenhum Livro -->
+    <div id="screenNotFound" class="screen">
+      <h1 class="card-title">Nenhum Livro Encontrado</h1>
+      <p class="card-description">Não foi possível encontrar publicações com os dados inseridos.</p>
+      <div class="form-actions">
+        <button type="button" class="btn btn-Buscar btn-back">Tentar Novamente</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
