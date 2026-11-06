@@ -1,15 +1,14 @@
-// Captura do formulário
+
 const inputAutor = document.getElementById('autor');
 const inputTitulo = document.getElementById('titulo');
 const inputIsbn = document.getElementById('isbn');
 const searchForm = document.getElementById('searchForm');
 
-//botões
+
 const btnClear = document.getElementById('btnClear');
 const btnCancel = document.getElementById('btnCancel');
 const backButtons = document.querySelectorAll('.btn-back');
 
-// Registro de telas da interface
 const screens = {
   form: document.getElementById('screenForm'),
   error: document.getElementById('screenError'),
@@ -20,20 +19,20 @@ const screens = {
 
 let currentAbortController = null; 
 
-// Função auxiliar de alteraçaõ
+
 function showScreen(screenKey) {
   Object.values(screens).forEach(screen => screen.classList.remove('active'));
   screens[screenKey].classList.add('active');
 }
 
-// Clique Autor
+
 inputAutor.addEventListener('click', () => {
   if (!inputAutor.value.trim()) {
     inputAutor.value = 'Machado de Assis';
   }
 });
 
-// consumo da Open Library API
+
 searchForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -41,7 +40,7 @@ searchForm.addEventListener('submit', async (e) => {
   const tituloVal = inputTitulo.value.trim();
   const isbnVal = inputIsbn.value.trim();
 
-  // Tela de erro
+ 
   if (!autorVal && !tituloVal && !isbnVal) {
     showScreen('error');
     return;
@@ -49,7 +48,7 @@ searchForm.addEventListener('submit', async (e) => {
   
   showScreen('loading');
 
-  // Constrói a URL  da Open Library
+
   let apiUrl = 'https://openlibrary.org/search.json?';
   const params = [];
   if (tituloVal) params.push(`title=${encodeURIComponent(tituloVal)}`);
@@ -57,7 +56,7 @@ searchForm.addEventListener('submit', async (e) => {
   if (isbnVal) params.push(`isbn=${encodeURIComponent(isbnVal)}`);
   apiUrl += params.join('&');
 
-  // cancela a requisição se o usuário quiser
+ 
   currentAbortController = new AbortController();
 
   try {
@@ -72,7 +71,7 @@ searchForm.addEventListener('submit', async (e) => {
       const bookAuthor = book.author_name ? book.author_name.join(', ') : 'Autor desconhecido';
       const bookIsbn = book.isbn ? book.isbn[0] : 'ISBN não disponível';
 
-      // preenche a tela com os dados reais da Open Library
+   
       document.getElementById('resultTitle').textContent = bookTitle;
       document.getElementById('resultAuthor').textContent = `Autor: ${bookAuthor}`;
       document.getElementById('resultIsbn').textContent = `ISBN: ${bookIsbn}`;
@@ -94,7 +93,7 @@ searchForm.addEventListener('submit', async (e) => {
   }
 });
 
-// Cancelamento da busca
+
 btnCancel.addEventListener('click', () => {
   if (currentAbortController) {
     currentAbortController.abort(); 
@@ -102,14 +101,14 @@ btnCancel.addEventListener('click', () => {
   showScreen('form');
 });
 
-// Limpar o formulário
+
 btnClear.addEventListener('click', () => {
   inputAutor.value = '';
   inputTitulo.value = '';
   inputIsbn.value = '';
 });
 
-// Voltar
+
 backButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     showScreen('form');
